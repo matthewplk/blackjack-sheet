@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=600, initial-scale=1.0">
+<title>BJ Strategy</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; color: #fff; width: 600px; height: 600px; overflow-y: auto; overflow-x: hidden; font-family: 'Courier New', monospace; }
+  .hud { background: #000; color: #fff; width: 600px; padding: 6px; }
+  .hud-title { text-align: center; font-size: 13px; font-weight: bold; letter-spacing: 2px; border-bottom: 1px solid #fff; padding-bottom: 4px; margin-bottom: 5px; text-transform: uppercase; }
+  .section-label { font-size: 10px; font-weight: bold; letter-spacing: 1px; margin: 6px 0 3px; color: #aaa; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 2px; }
+  th, td { border: 1px solid #444; text-align: center; padding: 2px 1px; }
+  th { background: #111; color: #ccc; font-size: 9px; font-weight: bold; }
+  td.hand-label { background: #111; color: #ccc; font-weight: bold; text-align: left; padding-left: 3px; width: 34px; font-size: 9px; }
+  .H  { background: #000; color: #fff; }
+  .S  { background: #0d200d; color: #aef5ae; }
+  .D  { background: #1f1a00; color: #ffe066; }
+  .P  { background: #1a001f; color: #e8aaff; }
+  .DS { background: #1f1a00; color: #ffe066; }
+  .legend { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 5px; font-size: 9px; }
+  .legend-item { display: flex; align-items: center; gap: 3px; }
+  .legend-dot { width: 10px; height: 10px; border: 1px solid #555; flex-shrink: 0; }
+  .footer { text-align: center; font-size: 8px; color: #555; margin-top: 6px; padding-top: 4px; border-top: 1px solid #222; }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="hud-title">⬛ Blackjack Basic Strategy ⬛</div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#000"></div><span>H = Hit</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0d200d"></div><span>S = Stand</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1f1a00"></div><span>D = Double (or Hit)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1a001f"></div><span>P = Split</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1f1a00"></div><span>DS = Double (or Stand)</span></div>
+  </div>
+
+  <div class="section-label">Hard Totals — Dealer Upcard →</div>
+  <table id="hard"></table>
+
+  <div class="section-label">Soft Totals (Ace + X) — Dealer Upcard →</div>
+  <table id="soft"></table>
+
+  <div class="section-label">Pairs — Dealer Upcard →</div>
+  <table id="pairs"></table>
+
+  <div class="footer">Standard 6-deck, dealer stands on soft 17 · For entertainment reference only</div>
+</div>
+
+<script>
+const dealers = ['2','3','4','5','6','7','8','9','10','A'];
+
+function makeHeader(tbl) {
+  const tr = document.createElement('tr');
+  const th0 = document.createElement('th');
+  th0.textContent = 'Hand';
+  tr.appendChild(th0);
+  dealers.forEach(d => {
+    const th = document.createElement('th');
+    th.textContent = d;
+    tr.appendChild(th);
+  });
+  tbl.appendChild(tr);
+}
+
+function addRow(tbl, label, actions) {
+  const tr = document.createElement('tr');
+  const td0 = document.createElement('td');
+  td0.className = 'hand-label';
+  td0.textContent = label;
+  tr.appendChild(td0);
+  actions.forEach(a => {
+    const td = document.createElement('td');
+    td.className = a;
+    td.textContent = a;
+    tr.appendChild(td);
+  });
+  tbl.appendChild(tr);
+}
+
+const hard = document.getElementById('hard');
+makeHeader(hard);
+addRow(hard, '8',   ['H','H','H','H','H','H','H','H','H','H']);
+addRow(hard, '9',   ['H','D','D','D','D','H','H','H','H','H']);
+addRow(hard, '10',  ['D','D','D','D','D','D','D','D','H','H']);
+addRow(hard, '11',  ['D','D','D','D','D','D','D','D','D','H']);
+addRow(hard, '12',  ['H','H','S','S','S','H','H','H','H','H']);
+addRow(hard, '13',  ['S','S','S','S','S','H','H','H','H','H']);
+addRow(hard, '14',  ['S','S','S','S','S','H','H','H','H','H']);
+addRow(hard, '15',  ['S','S','S','S','S','H','H','H','H','H']);
+addRow(hard, '16',  ['S','S','S','S','S','H','H','H','H','H']);
+addRow(hard, '17+', ['S','S','S','S','S','S','S','S','S','S']);
+
+const soft = document.getElementById('soft');
+makeHeader(soft);
+addRow(soft, 'A+2', ['H','H','H','D','D','H','H','H','H','H']);
+addRow(soft, 'A+3', ['H','H','H','D','D','H','H','H','H','H']);
+addRow(soft, 'A+4', ['H','H','D','D','D','H','H','H','H','H']);
+addRow(soft, 'A+5', ['H','H','D','D','D','H','H','H','H','H']);
+addRow(soft, 'A+6', ['H','D','D','D','D','H','H','H','H','H']);
+addRow(soft, 'A+7', ['DS','DS','DS','DS','DS','S','S','H','H','H']);
+addRow(soft, 'A+8', ['S','S','S','S','S','S','S','S','S','S']);
+addRow(soft, 'A+9', ['S','S','S','S','S','S','S','S','S','S']);
+
+const pairs = document.getElementById('pairs');
+makeHeader(pairs);
+addRow(pairs, '2+2',   ['P','P','P','P','P','P','H','H','H','H']);
+addRow(pairs, '3+3',   ['P','P','P','P','P','P','H','H','H','H']);
+addRow(pairs, '4+4',   ['H','H','H','P','P','H','H','H','H','H']);
+addRow(pairs, '5+5',   ['D','D','D','D','D','D','D','D','H','H']);
+addRow(pairs, '6+6',   ['P','P','P','P','P','H','H','H','H','H']);
+addRow(pairs, '7+7',   ['P','P','P','P','P','P','H','H','H','H']);
+addRow(pairs, '8+8',   ['P','P','P','P','P','P','P','P','P','P']);
+addRow(pairs, '9+9',   ['P','P','P','P','P','S','P','P','S','S']);
+addRow(pairs, '10+10', ['S','S','S','S','S','S','S','S','S','S']);
+addRow(pairs, 'A+A',   ['P','P','P','P','P','P','P','P','P','P']);
+</script>
+</body>
+</html>
