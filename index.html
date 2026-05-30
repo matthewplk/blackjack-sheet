@@ -6,35 +6,35 @@
 <title>BJ Strategy</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: #000; color: #fff; width: 600px; height: 600px; overflow-y: auto; overflow-x: hidden; font-family: 'Courier New', monospace; }
-  .hud { background: #000; color: #fff; width: 600px; padding: 6px; }
-  .hud-title { text-align: center; font-size: 13px; font-weight: bold; letter-spacing: 2px; border-bottom: 1px solid #fff; padding-bottom: 4px; margin-bottom: 5px; text-transform: uppercase; }
-  .section-label { font-size: 10px; font-weight: bold; letter-spacing: 1px; margin: 6px 0 3px; color: #aaa; text-transform: uppercase; }
+  html, body { background: #fff; color: #000; width: 600px; height: 600px; overflow-y: auto; overflow-x: hidden; font-family: 'Courier New', monospace; }
+  .hud { background: #fff; color: #000; width: 600px; padding: 6px; }
+  .hud-title { text-align: center; font-size: 13px; font-weight: bold; letter-spacing: 2px; border-bottom: 1px solid #000; padding-bottom: 4px; margin-bottom: 5px; text-transform: uppercase; }
+  .section-label { font-size: 10px; font-weight: bold; letter-spacing: 1px; margin: 6px 0 3px; color: #555; text-transform: uppercase; }
   table { width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 2px; }
-  th, td { border: 1px solid #444; text-align: center; padding: 2px 1px; }
-  th { background: #111; color: #ccc; font-size: 9px; font-weight: bold; }
-  td.hand-label { background: #111; color: #ccc; font-weight: bold; text-align: left; padding-left: 3px; width: 34px; font-size: 9px; }
-  .H  { background: #000; color: #fff; }
-  .S  { background: #0d200d; color: #aef5ae; }
-  .D  { background: #1f1a00; color: #ffe066; }
-  .P  { background: #1a001f; color: #e8aaff; }
-  .DS { background: #1f1a00; color: #ffe066; }
+  th, td { border: 1px solid #bbb; text-align: center; padding: 2px 1px; }
+  th { background: #eee; color: #333; font-size: 9px; font-weight: bold; }
+  td.hand-label { background: #eee; color: #333; font-weight: bold; text-align: left; padding-left: 3px; width: 34px; font-size: 9px; }
+  .H  { background: #fff; color: #000; }
+  .S  { background: #d4f5d4; color: #1a5c1a; }
+  .D  { background: #fff9cc; color: #7a5c00; }
+  .P  { background: #ecdff5; color: #5c1a7a; }
+  .DS { background: #fff9cc; color: #7a5c00; }
   .legend { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 5px; font-size: 9px; }
   .legend-item { display: flex; align-items: center; gap: 3px; }
-  .legend-dot { width: 10px; height: 10px; border: 1px solid #555; flex-shrink: 0; }
-  .footer { text-align: center; font-size: 8px; color: #555; margin-top: 6px; padding-top: 4px; border-top: 1px solid #222; }
+  .legend-dot { width: 10px; height: 10px; border: 1px solid #bbb; flex-shrink: 0; }
+  .footer { text-align: center; font-size: 8px; color: #999; margin-top: 6px; padding-top: 4px; border-top: 1px solid #ddd; }
 </style>
 </head>
 <body>
 <div class="hud">
-  <div class="hud-title">⬛ Blackjack Basic Strategy ⬛</div>
+  <div class="hud-title">♠ Blackjack Basic Strategy ♠</div>
 
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#000"></div><span>H = Hit</span></div>
-    <div class="legend-item"><div class="legend-dot" style="background:#0d200d"></div><span>S = Stand</span></div>
-    <div class="legend-item"><div class="legend-dot" style="background:#1f1a00"></div><span>D = Double (or Hit)</span></div>
-    <div class="legend-item"><div class="legend-dot" style="background:#1a001f"></div><span>P = Split</span></div>
-    <div class="legend-item"><div class="legend-dot" style="background:#1f1a00"></div><span>DS = Double (or Stand)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff"></div><span>H = Hit</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d4f5d4"></div><span>S = Stand</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff9cc"></div><span>D = Double (or Hit)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ecdff5"></div><span>P = Split</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff9cc"></div><span>DS = Double (or Stand)</span></div>
   </div>
 
   <div class="section-label">Hard Totals — Dealer Upcard →</div>
